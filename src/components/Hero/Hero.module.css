@@ -1,0 +1,438 @@
+/* ─── HERO SHELL ─── */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+  /* push content below navbar + ticker */
+  padding-top: calc(var(--nav-height) + 32px);
+}
+
+/* ─── BACKGROUNDS ─── */
+.bgGrid {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(90deg, rgba(184,134,11,0.07) 1px, transparent 1px),
+    linear-gradient(0deg,  rgba(184,134,11,0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: linear-gradient(
+    160deg,
+    rgba(0,0,0,0.85) 0%,
+    rgba(0,0,0,0.4)  55%,
+    rgba(0,0,0,0)    85%
+  );
+  -webkit-mask-image: linear-gradient(
+    160deg,
+    rgba(0,0,0,0.85) 0%,
+    rgba(0,0,0,0.4)  55%,
+    rgba(0,0,0,0)    85%
+  );
+}
+
+.bgGlow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(
+    ellipse 45% 60% at 78% 42%,
+    rgba(212,160,23,0.07) 0%,
+    transparent 70%
+  );
+}
+
+/* ─── CORNER ACCENTS ─── */
+.accentTR {
+  position: absolute;
+  top: calc(var(--nav-height) + 32px + 20px);
+  right: 36px;
+  width: 56px;
+  height: 56px;
+  border-top: 1px solid rgba(184,134,11,0.35);
+  border-right: 1px solid rgba(184,134,11,0.35);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.accentBL {
+  position: absolute;
+  bottom: 32px;
+  left: 36px;
+  width: 44px;
+  height: 44px;
+  border-bottom: 1px solid rgba(184,134,11,0.25);
+  border-left: 1px solid rgba(184,134,11,0.25);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ─── INNER LAYOUT ─── */
+.inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+/* ─── LEFT ─── */
+.left {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  animation: up 0.5s var(--ease-out) 0.05s both;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Headline */
+.h1 {
+  font-family: var(--font-display);
+  font-size: clamp(3.8rem, 7vw, 7.5rem);
+  line-height: 0.9;
+  letter-spacing: 0.01em;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.word {
+  display: block;
+  color: var(--ink);
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+}
+
+.visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.gold { color: var(--gold); }
+
+/* Sub */
+.sub {
+  font-size: 0.95rem;
+  color: var(--ink-light);
+  line-height: 1.75;
+  max-width: 380px;
+  animation: up 0.6s var(--ease-out) 0.5s both;
+}
+
+/* CTAs */
+.ctas {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  animation: up 0.6s var(--ease-out) 0.65s both;
+}
+
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--white);
+  background: var(--ink);
+  padding: 13px 26px;
+  border-radius: 2px;
+  text-decoration: none;
+  transition:
+    background var(--duration-fast) var(--ease-out),
+    gap var(--duration-base) var(--ease-spring);
+}
+
+.btnPrimary:hover {
+  background: var(--gold);
+  color: var(--white);
+  gap: 16px;
+}
+
+.arrow {
+  display: inline-block;
+  transition: transform var(--duration-base) var(--ease-spring);
+}
+
+.btnPrimary:hover .arrow {
+  transform: translateX(3px);
+}
+
+.btnOutline {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  padding: 13px 20px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  text-decoration: none;
+  transition:
+    color var(--duration-fast),
+    border-color var(--duration-fast),
+    background var(--duration-fast);
+}
+
+.btnOutline:hover {
+  color: var(--gold);
+  border-color: rgba(184,134,11,0.5);
+  background: var(--gold-wash);
+}
+
+/* Stats */
+.stats {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  animation: up 0.6s var(--ease-out) 0.8s both;
+}
+
+.statGroup {
+  display: flex;
+  align-items: center;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 0 20px 0 0;
+}
+
+.statGroup:first-child .stat { padding-left: 0; }
+
+.statN {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.statL {
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.div {
+  width: 1px;
+  height: 28px;
+  background: var(--border);
+  margin-right: 20px;
+  flex-shrink: 0;
+}
+
+/* ─── RIGHT — COLLAGE ─── */
+.right {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.collage {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - var(--nav-height) - 32px - 64px);
+  max-height: 580px;
+}
+
+/* Shared image block */
+.imgA, .imgB, .imgC {
+  position: absolute;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 16px 48px rgba(15,12,8,0.18);
+  border: 2px solid rgba(255,255,255,0.2);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(10,8,5,0.65) 0%,
+    rgba(10,8,5,0.1)  50%,
+    transparent 100%
+  );
+  z-index: 1;
+}
+
+.tag {
+  position: absolute;
+  bottom: 10px;
+  left: 12px;
+  z-index: 2;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(184,134,11,0.9);
+  padding: 4px 10px;
+  border-radius: 2px;
+  backdrop-filter: blur(4px);
+}
+
+/* Image A — main tall, left side */
+.imgA {
+  width: 52%;
+  height: 88%;
+  top: 6%;
+  left: 0;
+  transform: rotate(-1deg);
+  z-index: 2;
+}
+
+/* Image B — top right */
+.imgB {
+  width: 46%;
+  height: 50%;
+  top: 2%;
+  right: 0;
+  transform: rotate(1.2deg);
+  z-index: 3;
+}
+
+/* Image C — bottom right */
+.imgC {
+  width: 46%;
+  height: 43%;
+  bottom: 2%;
+  right: 0;
+  transform: rotate(-0.8deg);
+  z-index: 3;
+}
+
+/* Floating badge */
+.badge {
+  position: absolute;
+  bottom: 14%;
+  left: 46%;
+  transform: translateX(-50%);
+  z-index: 10;
+  background: var(--ink);
+  border: 1px solid rgba(184,134,11,0.4);
+  border-radius: 8px;
+  padding: 10px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  animation: float 3.5s ease-in-out infinite;
+}
+
+.badgeN {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.badgeL {
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(240,235,225,0.55);
+  white-space: nowrap;
+}
+
+/* Gold frame accent */
+.frameAccent {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 60%;
+  height: 55%;
+  border: 1px solid rgba(184,134,11,0.2);
+  border-radius: 10px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── KEYFRAMES ─── */
+@keyframes up {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%       { transform: translateX(-50%) translateY(-7px); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1;   transform: scale(1);   }
+  50%       { opacity: 0.4; transform: scale(0.7); }
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  .hero {
+    height: auto;
+    min-height: 100vh;
+    padding-bottom: 48px;
+  }
+
+  .inner {
+    grid-template-columns: 1fr;
+    padding-top: 32px;
+    align-items: start;
+  }
+
+  .right {
+    height: 340px;
+    width: 100%;
+  }
+
+  .collage {
+    height: 320px;
+    max-height: 320px;
+  }
+
+  .accentTR, .accentBL { display: none; }
+}
+
+@media (max-width: 480px) {
+  .h1 { font-size: clamp(3rem, 13vw, 4.5rem); }
+  .ctas { flex-wrap: wrap; }
+  .right { height: 260px; }
+  .collage { height: 240px; max-height: 240px; }
+}
