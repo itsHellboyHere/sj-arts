@@ -107,7 +107,7 @@
   object-position: center;
   flex-shrink: 0;
   border-radius: 8px;
-  /* background: #1a1208; */
+  background: #1a1208;
   box-shadow: 0 2px 12px rgba(184, 134, 11, 0.25);
 }
 
