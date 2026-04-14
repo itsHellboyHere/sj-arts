@@ -1,0 +1,253 @@
+/* ─────────────────────────────────────────
+   SECTION — the outer container
+───────────────────────────────────────── */
+.section {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #0D0B09;
+  min-height: 100vh;
+}
+
+/* ─────────────────────────────────────────
+   LEFT — STICKY PANEL
+───────────────────────────────────────── */
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 0 64px;
+  /* dark bg with gold radial glow */
+  background:
+    radial-gradient(
+      ellipse at 30% 50%,
+      rgba(184,134,11,0.12) 0%,
+      transparent 65%
+    ),
+    #0D0B09;
+}
+
+.stickyInner {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 420px;
+}
+
+.eyebrow {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(184,134,11,0.7);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.eyebrow::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: rgba(184,134,11,0.5);
+}
+
+.h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 4vw, 4.8rem);
+  line-height: 0.92;
+  letter-spacing: 0.02em;
+  color: #F0EBE1;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+.em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: #C9A84C;
+}
+
+.stickyText {
+  font-size: 0.88rem;
+  color: rgba(240,235,225,0.4);
+  line-height: 1.75;
+  margin-bottom: 40px;
+  max-width: 300px;
+}
+
+/* Stats */
+.stats {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.statNum {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  line-height: 1;
+  color: #C9A84C;
+  letter-spacing: 0.02em;
+}
+
+.statLbl {
+  font-size: 0.55rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(240,235,225,0.3);
+}
+
+.statDiv {
+  width: 1px;
+  height: 32px;
+  background: rgba(240,235,225,0.1);
+}
+
+/* ─────────────────────────────────────────
+   RIGHT — SCROLLING CARDS
+───────────────────────────────────────── */
+.cards {
+  display: flex;
+  flex-direction: column;
+  padding: 0 48px 0 40px;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* spacer so cards start mid-screen */
+.cardsSpacer {
+  height: 20vh;
+}
+
+.cardsBottom {
+  height: 20vh;
+}
+
+/* ─────────────────────────────────────────
+   CARD
+───────────────────────────────────────── */
+.card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 16px;
+  padding: 28px 28px 24px;
+  /* start state — off-screen right */
+  opacity: 0;
+  transform: translateX(48px);
+  transition:
+    opacity 0.65s cubic-bezier(0.16,1,0.3,1),
+    transform 0.65s cubic-bezier(0.16,1,0.3,1),
+    border-color 0.3s,
+    background 0.3s;
+}
+
+.card:hover {
+  background: rgba(184,134,11,0.06);
+  border-color: rgba(184,134,11,0.2);
+}
+
+/* visible state added by JS */
+.cardVisible {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.cardNum {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  color: rgba(201,168,76,0.5);
+  letter-spacing: 0.1em;
+}
+
+.cardTag {
+  font-size: 0.54rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(184,134,11,0.6);
+  background: rgba(184,134,11,0.08);
+  border: 1px solid rgba(184,134,11,0.15);
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+.cardTitle {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 2.2vw, 2.2rem);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: #F0EBE1;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+.cardDesc {
+  font-size: 0.84rem;
+  color: rgba(240,235,225,0.45);
+  line-height: 1.75;
+}
+
+/* ─────────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────────── */
+@media (max-width: 860px) {
+  .section {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .sticky {
+    position: relative;
+    height: auto;
+    padding: 64px 24px 40px;
+  }
+
+  .stickyInner { max-width: 100%; }
+
+  .h2 { font-size: clamp(2.4rem, 8vw, 3.5rem); }
+
+  .cards {
+    padding: 0 24px 60px;
+    gap: 16px;
+  }
+
+  .cardsSpacer,
+  .cardsBottom { height: 0; }
+
+  /* on mobile just fade in — no slide */
+  .card {
+    transform: translateY(16px);
+  }
+
+  .cardVisible {
+    transform: translateY(0) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .sticky { padding: 48px 16px 32px; }
+  .cards { padding: 0 16px 48px; gap: 12px; }
+  .card { padding: 22px 20px; }
+  .cardTitle { font-size: clamp(1.4rem, 6vw, 1.8rem); }
+  .stats { gap: 14px; }
+  .statNum { font-size: 1.5rem; }
+}

@@ -1,0 +1,327 @@
+/* ─────────────────────────────────────────
+   SECTION
+───────────────────────────────────────── */
+.section {
+  position: relative;
+  overflow: hidden;
+  background: #FAF8F2;
+}
+
+/* ─────────────────────────────────────────
+   BG
+───────────────────────────────────────── */
+.bg {
+  position: absolute; inset: 0; z-index: 0;
+  background: linear-gradient(
+    160deg,
+    #f5f2e8 0%,
+    #faf8f0 40%,
+    #fdf8ec 70%,
+    #fff8e8 100%
+  );
+}
+
+.glow1 {
+  position: absolute;
+  top: -20%; right: -10%;
+  width: 55%; height: 70%;
+  background: radial-gradient(ellipse at 70% 30%,
+    rgba(184,134,11,0.12) 0%, transparent 65%);
+  z-index: 1; pointer-events: none;
+}
+
+.glow2 {
+  position: absolute;
+  bottom: -10%; left: -5%;
+  width: 45%; height: 55%;
+  background: radial-gradient(ellipse at 30% 70%,
+    rgba(212,180,80,0.08) 0%, transparent 65%);
+  z-index: 1; pointer-events: none;
+}
+
+/* ─────────────────────────────────────────
+   TOP BAR
+───────────────────────────────────────── */
+.topbar {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px var(--gutter) 0;
+}
+
+.topLeft {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.liveDot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #B8860B;
+  animation: blink 2s ease-in-out infinite;
+}
+
+.topLabel {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(28,26,14,0.4);
+}
+
+.topRight {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(28,26,14,0.2);
+}
+
+/* ─────────────────────────────────────────
+   SVG HEADLINE
+───────────────────────────────────────── */
+.headWrap {
+  position: relative;
+  z-index: 3;
+  padding: 24px var(--gutter) 0;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+.headIn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.svg {
+  width: 100%;
+  display: block;
+  overflow: visible;
+}
+
+.svgLine2 {
+  margin-top: -16px;
+}
+
+/* ── Stroke text ── */
+.sText {
+  fill: none;
+  stroke-width: 2px;
+  stroke-linejoin: round;
+  /* dash pattern — same as the Interstellar effect */
+  stroke-dasharray: 70 290;
+  stroke-dashoffset: 0;
+  animation: strokeAnim 6s linear infinite;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 88px;
+}
+
+/* 5 stroke layers — gold palette */
+.s1 { stroke: #B8860B; animation-delay: 0s; }
+.s2 { stroke: #C9A84C; animation-delay: -1.2s; }
+.s3 { stroke: #D4A017; animation-delay: -2.4s; }
+.s4 { stroke: #E8C060; animation-delay: -3.6s; }
+.s5 { stroke: #F0D080; animation-delay: -4.8s; }
+
+/* solid fill on top — dark ink */
+.sFill {
+  fill: #1C1A0E;
+  stroke: none;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 88px;
+}
+
+/* ─────────────────────────────────────────
+   GOLD RULE
+───────────────────────────────────────── */
+.rule {
+  position: relative;
+  z-index: 3;
+  height: 1px;
+  margin: 20px var(--gutter);
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(184,134,11,0.3),
+    transparent
+  );
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 1s ease 0.3s;
+}
+
+.ruleIn { transform: scaleX(1); }
+
+/* ─────────────────────────────────────────
+   MARQUEE
+───────────────────────────────────────── */
+.marqueeWrap {
+  position: relative;
+  z-index: 3;
+  padding: 44px 0;
+  overflow: hidden;
+}
+
+.marqueeWrap::before,
+.marqueeWrap::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 120px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.marqueeWrap::before {
+  left: 0;
+  background: linear-gradient(to right, #FAF8F2, transparent);
+}
+
+.marqueeWrap::after {
+  right: 0;
+  background: linear-gradient(to left, #FAF8F2, transparent);
+}
+
+.marqueeTrack {
+  display: flex;
+  width: max-content;
+  animation: goRight 35s linear infinite;
+}
+
+.marqueeTrack:hover {
+  animation-play-state: paused;
+}
+
+.marqueeItem {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.name {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.3rem, 2.2vw, 2.2rem);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(28,26,14,0.18);
+  padding: 0 28px;
+  white-space: nowrap;
+  cursor: default;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.name:hover {
+  color: #B8860B;
+  transform: scale(1.03);
+}
+
+.sep {
+  color: rgba(184,134,11,0.25);
+  font-size: 0.4rem;
+  flex-shrink: 0;
+}
+
+/* ─────────────────────────────────────────
+   BOTTOM STRIP
+───────────────────────────────────────── */
+.bottom {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px var(--gutter) 40px;
+  border-top: 1px solid rgba(28,26,14,0.06);
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.7s ease 0.3s, transform 0.7s ease 0.3s;
+}
+
+.bottomIn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.locs { display: flex; align-items: center; }
+
+.loc {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(28,26,14,0.22);
+  padding: 0 18px;
+  border-right: 1px solid rgba(28,26,14,0.08);
+}
+
+.loc:first-child { padding-left: 0; }
+.loc:last-child  { border-right: none; }
+
+.cta {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #B8860B;
+  text-decoration: none;
+  border: 1px solid rgba(184,134,11,0.3);
+  padding: 10px 20px;
+  border-radius: 2px;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.cta:hover {
+  background: rgba(184,134,11,0.08);
+  border-color: rgba(184,134,11,0.5);
+}
+
+/* ─────────────────────────────────────────
+   KEYFRAMES
+───────────────────────────────────────── */
+/* SVG stroke dash animation — exactly like Interstellar effect */
+@keyframes strokeAnim {
+  0%   { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -400; }
+}
+
+@keyframes goRight {
+  from { transform: translateX(-33.333%); }
+  to   { transform: translateX(0); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.3; transform: scale(0.7); }
+}
+
+/* ─────────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────────── */
+@media (max-width: 768px) {
+  .sText, .sFill { font-size: 76px; }
+  .svgLine2 { margin-top: -10px; }
+}
+
+@media (max-width: 480px) {
+  .sText, .sFill { font-size: 88px; }
+  .sText { stroke-width: 1.8px; }
+  .svgLine2 { margin-top: -6px; }
+
+  .bottom {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .locs { flex-wrap: wrap; gap: 8px; }
+  .loc { border-right: none; padding: 0; opacity: 0.5; }
+}

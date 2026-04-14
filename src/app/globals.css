@@ -46,7 +46,7 @@
   --space-3xl:  128px;
 
   /* Layout */
-  --nav-height:     80px;
+  --nav-height:     76px;
   --max-width:      1320px;
   --section-pad:    120px;
   --gutter:         60px;
@@ -124,7 +124,7 @@
 ───────────────────────────────────────── */
 html {
   font-size: 16px;
-  scroll-behavior: smooth;
+  /* scroll-behavior: smooth; */
   text-rendering: optimizeLegibility;
 }
 

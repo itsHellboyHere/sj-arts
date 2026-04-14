@@ -1,0 +1,341 @@
+/* ─────────────────────────────────────────
+   SECTION
+───────────────────────────────────────── */
+.section {
+  background: #0A0806;
+  overflow: hidden;
+  padding: 60px 0 56px;
+  position: relative;
+}
+
+/* ─────────────────────────────────────────
+   BG GLOW
+───────────────────────────────────────── */
+.bgGlow {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  height: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(184,134,11,0.06) 0%,
+    transparent 65%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─────────────────────────────────────────
+   HEADER
+───────────────────────────────────────── */
+.header {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 var(--gutter) 32px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s var(--ease-out),
+              transform 0.8s var(--ease-out);
+}
+
+.headerIn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.headLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(184,134,11,0.7);
+}
+
+.eyebrowDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 5vw, 5rem);
+  line-height: 0.92;
+  letter-spacing: 0.02em;
+  color: #F0EBE1;
+}
+
+.gold { color: var(--gold); }
+
+.viewAll {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(240,235,225,0.35);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding-bottom: 3px;
+  align-self: flex-end;
+  transition: color var(--duration-fast), border-color var(--duration-fast);
+}
+
+.viewAll:hover {
+  color: var(--gold);
+  border-color: rgba(184,134,11,0.4);
+}
+
+/* ─────────────────────────────────────────
+   3D SCENE
+───────────────────────────────────────── */
+.scene {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+}
+
+.perspective {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+  padding: 0 var(--gutter);
+  transform:
+    perspective(1200px)
+    rotateX(22deg)
+    scale(1.15);
+  transform-origin: center top;
+}
+
+/* ─────────────────────────────────────────
+   COLUMNS
+───────────────────────────────────────── */
+.col {
+  flex: 1;
+  max-width: 280px;
+  overflow: hidden;
+  height: 100%;
+  position: relative;
+}
+
+.col1 {
+  transform: rotateY(4deg);
+  margin-top: -20px;
+}
+
+.col2 {
+  margin-top: 40px;
+}
+
+.col3 {
+  transform: rotateY(-4deg);
+  margin-top: -10px;
+}
+
+/* ─────────────────────────────────────────
+   COLUMN TRACKS
+───────────────────────────────────────── */
+.colTrack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.scrollUp1 {
+  animation: scrollUp 28s linear infinite;
+}
+
+.scrollUp2 {
+  animation: scrollUp 22s linear infinite;
+  animation-delay: -8s;
+}
+
+.scrollUp3 {
+  animation: scrollUp 32s linear infinite;
+  animation-delay: -14s;
+}
+
+/* ─────────────────────────────────────────
+   CARD — no hover effects
+───────────────────────────────────────── */
+.card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 5/6;
+  border-radius: 10px;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.imgWrap {
+  position: absolute;
+  inset: 0;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(8,6,3,0.88) 0%,
+    rgba(8,6,3,0.25) 50%,
+    rgba(8,6,3,0.0)  100%
+  );
+  z-index: 1;
+}
+
+/* ─────────────────────────────────────────
+   CARD INFO
+───────────────────────────────────────── */
+.info {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.infoType {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: #F0EBE1;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.infoLoc {
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(240,235,225,0.4);
+}
+
+/* ─────────────────────────────────────────
+   FADE MASKS
+───────────────────────────────────────── */
+.fadeTop {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 60px;
+  background: linear-gradient(to bottom, #0A0806 0%, transparent 100%);
+  z-index: 5;
+  pointer-events: none;
+}
+
+.fadeBottom {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 100px;
+  background: linear-gradient(to top, #0A0806 0%, transparent 100%);
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* ─────────────────────────────────────────
+   BOTTOM CTA
+───────────────────────────────────────── */
+.bottom {
+  position: relative;
+  z-index: 10;
+  padding: 32px var(--gutter) 0;
+  display: flex;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.7s var(--ease-out) 0.3s,
+              transform 0.7s var(--ease-out) 0.3s;
+}
+
+.bottomIn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #F0EBE1;
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 14px 32px;
+  border-radius: 2px;
+  transition:
+    border-color var(--duration-fast),
+    color var(--duration-fast),
+    background var(--duration-fast),
+    gap var(--duration-base) var(--ease-spring);
+}
+
+.cta:hover {
+  border-color: rgba(184,134,11,0.4);
+  color: var(--gold);
+  background: rgba(184,134,11,0.05);
+  gap: 20px;
+}
+
+.ctaArrow {
+  transition: transform var(--duration-base) var(--ease-spring);
+}
+
+.cta:hover .ctaArrow {
+  transform: translateX(4px);
+}
+
+/* ─────────────────────────────────────────
+   KEYFRAMES
+───────────────────────────────────────── */
+@keyframes scrollUp {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-50%); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1;   transform: scale(1);   }
+  50%       { opacity: 0.4; transform: scale(0.7); }
+}
+
+/* ─────────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────────── */
+@media (max-width: 768px) {
+  .scene { height: 360px; }
+
+  .perspective {
+    transform: perspective(800px) rotateX(16deg) scale(1.05);
+    gap: 10px;
+  }
+
+  .col { max-width: 200px; }
+  .col1, .col3 { display: none; }
+  .col2 { max-width: 100%; }
+
+  .section { padding: 60px 0 48px; }
+}

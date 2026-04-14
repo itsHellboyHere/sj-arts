@@ -16,9 +16,11 @@ const SERVICES_TICKER = [
 
 const NAV_LINKS = [
     { label: 'Home', href: '/' },
+    {label:'Services',href:'/services'},
     { label: 'About', href: '/about' },
     { label: 'Gallery', href: '/gallery' },
-    { label: 'Contact', href: '/contact' },
+    {label:'F&Q',href:'/faq'},
+    // { label: 'Contact', href: '/contact' },
 ]
 
 export default function Navbar() {
@@ -38,18 +40,8 @@ export default function Navbar() {
         <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
 
             {/* ── Ticker ── */}
-            <div className={`${styles.ticker} ${scrolled ? styles.tickerHidden : ''}`}>
-                <div className={styles.tickerInner}>
-                    <div className={styles.tickerTrack}>
-                        {[...SERVICES_TICKER, ...SERVICES_TICKER].map((s, i) => (
-                            <span key={i} className={styles.tickerItem}>
-                                {s}
-                                <span className={styles.tickerDot}>✦</span>
-                            </span>
-                        ))}
-                    </div>
-                </div>
-            </div>
+
+           
 
             {/* ── Main Nav ── */}
             <nav className={styles.nav}>
