@@ -1,12 +1,13 @@
 /* ─── SECTION ─── */
 /* ─── SECTION ─── */
 .section {
-  position: relative;
+  position: sticky;
   min-height: 160vh;      /* was 120vh — more scroll room */
   display: flex;
   align-items: center;
   overflow: hidden;
-  padding: 180px 0;       /* was 140px — more breathing */
+  padding: 180px 0;
+  top: -70%;
 }
 /* ─── PARALLAX WRAP ─── */
 .bgWrap {

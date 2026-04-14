@@ -5,7 +5,8 @@
   background: #0A0806;
   overflow: hidden;
   padding: 60px 0 56px;
-  position: relative;
+  position: sticky;
+  top: -15%;
 }
 
 /* ─────────────────────────────────────────
@@ -326,6 +327,9 @@
    RESPONSIVE
 ───────────────────────────────────────── */
 @media (max-width: 768px) {
+  .section{
+    top: 0%;
+  }
   .scene { height: 360px; }
 
   .perspective {

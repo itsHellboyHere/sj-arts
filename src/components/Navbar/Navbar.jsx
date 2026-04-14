@@ -88,7 +88,7 @@ export default function Navbar() {
                         98888-08193
                     </span>
                     <Link href="/contact" className={styles.cta}>
-                        Get Quote
+                        Contact Us
                         <span className={styles.ctaArrow}>→</span>
                     </Link>
                 </div>
@@ -127,7 +127,7 @@ export default function Navbar() {
                             <span>sjarts7@gmail.com</span>
                         </div>
                         <Link href="/contact" className={styles.mobileCta}>
-                            Get Quote →
+                            Contact Us →
                         </Link>
                     </div>
                 </div>
