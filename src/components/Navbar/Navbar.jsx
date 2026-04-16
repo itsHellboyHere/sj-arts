@@ -2,25 +2,15 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import styles from './Navbar.module.css'
 
-const SERVICES_TICKER = [
-    'Acrylic Letters', 'Acrylic Lollipop', 'ACP Board',
-    'ACP Elevation', 'Glow Sign Board', 'Fabric LED Board',
-    'Neon Sign Board', 'Running LED', 'Video LED',
-    'Vinyl Printing', 'One Way Vision', 'Banners',
-    'Hoardings', 'Mug Printing', 'Visiting Cards',
-]
-
 const NAV_LINKS = [
     { label: 'Home', href: '/' },
-    {label:'Services',href:'/services'},
+    { label: 'Services', href: '/services' },
     { label: 'About', href: '/about' },
     { label: 'Gallery', href: '/gallery' },
-    {label:'F&Q',href:'/faq'},
-    // { label: 'Contact', href: '/contact' },
+    { label: 'F&Q', href: '/faq' },
 ]
 
 export default function Navbar() {
@@ -39,29 +29,39 @@ export default function Navbar() {
     return (
         <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
 
-            {/* ── Ticker ── */}
-
-           
-
             {/* ── Main Nav ── */}
             <nav className={styles.nav}>
 
-                {/* Logo */}
+                {/* Logo (Neon Board Only) */}
                 <Link href="/" className={styles.logo}>
-                    <Image
-                        src="/logo.png"
-                        alt="SJ Arts Printers"
-                        width={50}
-                        height={50}
-                        priority
-                        unoptimized
-                        className={styles.logoImg}
-                    />
                     <div className={styles.logoText}>
-                        <div className={styles.logoMain}>
-                            <span className={styles.logoSJ}>SJ</span>
-                            <span className={styles.logoArts}>ARTS</span>
+                        
+                        {/* MINI NEON BOARD */}
+                        <div className={styles.miniNeonBoard}>
+                            {/* Tiny mounting bolts */}
+                            <span className={styles.boardBolt} style={{ left: '6px' }}></span>
+                            <span className={styles.boardBolt} style={{ right: '6px' }}></span>
+                            
+                            <svg
+                                className={styles.neonSvg}
+                                viewBox="0 0 110 32"
+                                xmlns="http://www.w3.org/2000/svg"
+                                aria-label="SJ ARTS"
+                            >
+                                <symbol id="nav-neon-text">
+                                    <text x="50%" y="26" textAnchor="middle">SJ ARTS</text>
+                                </symbol>
+                                <g>
+                                    <use className={styles.sFill} href="#nav-neon-text" />
+                                    <use className={`${styles.sText} ${styles.s1}`} href="#nav-neon-text" />
+                                    <use className={`${styles.sText} ${styles.s2}`} href="#nav-neon-text" />
+                                    <use className={`${styles.sText} ${styles.s3}`} href="#nav-neon-text" />
+                                    <use className={`${styles.sText} ${styles.s4}`} href="#nav-neon-text" />
+                                    <use className={`${styles.sText} ${styles.s5}`} href="#nav-neon-text" />
+                                </g>
+                            </svg>
                         </div>
+
                         <span className={styles.logoPrinters}>Printers · Since 2009</span>
                     </div>
                 </Link>

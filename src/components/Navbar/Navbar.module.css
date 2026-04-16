@@ -7,18 +7,35 @@
   left: 0;
   right: 0;
   z-index: 1000;
-  transition: all var(--duration-base) var(--ease-out);
+  /* Removed 'transition: all' so the header skeleton never shifts */
 }
 
+/* ─────────────────────────────────────────
+   MAIN NAV (Light Theme - Fixed Height)
+───────────────────────────────────────── */
+.nav {
+  background: var(--cream);
+  border-bottom: 1px solid var(--border);
+  height: var(--nav-height); /* This locks the height permanently */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--gutter);
+  /* ONLY animate background and shadow, never padding or height */
+  transition: background 0.3s ease, box-shadow 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+/* Scroll state applied via .header.scrolled -> .nav */
 .scrolled .nav {
   box-shadow: 0 1px 40px rgba(24, 22, 20, 0.08);
   background: rgba(250, 248, 244, 0.96);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  /* Height and padding remain untouched here */
 }
 
 /* ─────────────────────────────────────────
-   TICKER
+   TICKER (Keep if you still use it)
 ───────────────────────────────────────── */
 .ticker {
   background: var(--gold);
@@ -79,19 +96,8 @@
 }
 
 /* ─────────────────────────────────────────
-   MAIN NAV
+   LOGO (Neon Board Only)
 ───────────────────────────────────────── */
-.nav {
-  background: var(--cream);
-  border-bottom: 1px solid var(--border);
-  height: var(--nav-height);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 var(--gutter);
-  transition: all var(--duration-base) var(--ease-out);
-}
-
 .logo {
   display: flex;
   align-items: center;
@@ -100,44 +106,86 @@
   width: fit-content;
 }
 
-.logoImg {
-  width: 60px;
-  height: 60px;
-  object-fit: cover;
-  object-position: center;
-  flex-shrink: 0;
-  border-radius: 8px;
-  background: #1a1208;
-  box-shadow: 0 2px 12px rgba(184, 134, 11, 0.25);
-}
-
 .logoText {
   display: flex;
   flex-direction: column;
-  gap: 1px;
+  gap: 6px; 
   line-height: 1;
 }
 
-.logoMain {
+/* MINI NEON BOARD */
+.miniNeonBoard {
+  position: relative;
+  background: rgba(12, 12, 12, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  padding: 4px 16px;
   display: flex;
-  align-items: baseline;
-  gap: 4px;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.15),
+    inset 0 1px 1px rgba(255, 255, 255, 0.05),
+    0 0 15px rgba(184, 134, 11, 0.25); 
 }
 
-.logoSJ {
-  font-family: var(--font-display);
-  font-size: 1.6rem;
-  color: var(--gold);
-  letter-spacing: 0.03em;
-  line-height: 1;
+/* Tiny mounting hardware dots */
+.boardBolt {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 4px;
+  background: #222;
+  border-radius: 50%;
+  border: 1px solid #444;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.8);
 }
 
-.logoArts {
-  font-family: var(--font-display);
-  font-size: 1.6rem;
-  color: var(--ink);
-  letter-spacing: 0.08em;
-  line-height: 1;
+.neonSvg {
+  width: 90px; 
+  height: 26px;
+  display: block;
+  overflow: visible;
+}
+
+.sText {
+  fill: none;
+  stroke-width: 1.5px; 
+  stroke-linejoin: round;
+  stroke-dasharray: 20 80; 
+  stroke-dashoffset: 0;
+  animation: navStrokeAnim 4s linear infinite;
+  font-family: 'Bebas Neue', var(--font-display, sans-serif);
+  font-size: 32px;
+  letter-spacing: 0.05em;
+}
+
+/* 5 neon glow layers - GOLD Palette */
+.s1 { stroke: #B8860B; animation-delay: 0s; }
+.s2 { stroke: #C9A84C; animation-delay: -0.8s; }
+.s3 { stroke: #D4A017; animation-delay: -1.6s; }
+.s4 { stroke: #E8C060; animation-delay: -2.4s; filter: drop-shadow(0 0 2px #E8C060); }
+.s5 { 
+  stroke: #F0D080; 
+  animation-delay: -3.2s; 
+  filter: drop-shadow(0 0 4px #F0D080) drop-shadow(0 0 8px #D4A017); 
+}
+
+/* Base tube color */
+.sFill {
+  fill: rgba(30, 25, 10, 0.9); 
+  stroke: rgba(184, 134, 11, 0.3); 
+  stroke-width: 0.5px;
+  font-family: 'Bebas Neue', var(--font-display, sans-serif);
+  font-size: 32px;
+  letter-spacing: 0.05em;
+  filter: drop-shadow(0 0 2px rgba(184, 134, 11, 0.4));
+}
+
+@keyframes navStrokeAnim {
+  0%   { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -100; } 
 }
 
 .logoPrinters {
@@ -149,8 +197,9 @@
   color: var(--grey);
   padding-left: 2px;
 }
+
 /* ─────────────────────────────────────────
-   NAV LINKS — DESKTOP (center column)
+   NAV LINKS — DESKTOP
 ───────────────────────────────────────── */
 .links {
   list-style: none;
@@ -169,7 +218,7 @@
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--ink-light);
+  color: var(--ink-light); 
   padding: 8px 16px;
   text-decoration: none;
   transition: color var(--duration-fast) var(--ease-out);
@@ -202,7 +251,7 @@
 }
 
 /* ─────────────────────────────────────────
-   CTA — right column
+   CTA — RIGHT COLUMN
 ───────────────────────────────────────── */
 .ctaWrapper {
   display: flex;
@@ -290,7 +339,7 @@
 .hamburger span {
   display: block;
   height: 1.5px;
-  background: var(--ink);
+  background: var(--ink); 
   border-radius: 2px;
   transition: transform var(--duration-base) var(--ease-out),
               opacity var(--duration-fast),
@@ -427,34 +476,18 @@
   .nav {
     grid-template-columns: 1fr auto;
   }
-  .logo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  text-decoration: none;
-  width: fit-content;
-}
-
-.logoImg {
-  width: 50px;
-  height: 50px;
-  object-fit: cover;
-  object-position: center;
-  flex-shrink: 0;
-  border-radius: 8px;
-  /* background: #1a1208; */
-  box-shadow: 0 2px 12px rgba(184, 134, 11, 0.25);
-}
-
-  .links    { display: none; }
+  .links { display: none; }
   .ctaWrapper { display: none; }
-  .hamburger  { display: flex; }
+  .hamburger { display: flex; }
   .mobileMenu { display: flex; }
 }
 
 @media (max-width: 480px) {
-  .logoSJ,
-  .logoArts {
-    font-size: 1.5rem;
+  .logo {
+    gap: 8px;
+  }
+  .neonSvg {
+    width: 75px; 
+    height: 22px;
   }
 }
