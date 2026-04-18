@@ -1,0 +1,189 @@
+/* 1. The Wrapper (The Void) */
+.sectionWrapper {
+  background-color: var(--ink); /* Matches the void from the previous section */
+  position: relative;
+  overflow: hidden;
+}
+
+/* 2. The Animated Card */
+.animatedSection {
+  /* We use a slightly lighter ink tone or add a subtle top glow 
+     so you can actually see the edge of the card scaling up against the dark void */
+  background: linear-gradient(180deg, var(--ink-soft) 0%, var(--ink) 20%);
+  box-shadow: 0 -20px 80px rgba(0, 0, 0, 0.6);
+  padding: var(--section-pad) 0;
+  position: relative;
+  overflow: hidden;
+  color: var(--cream);
+  will-change: transform, opacity, border-radius;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 5fr 6fr;
+  gap: var(--space-3xl);
+  align-items: center;
+  justify-content: space-between; 
+}
+
+/* ─────────────────────────────────────────
+   IMAGE COLUMN (LEFT)
+───────────────────────────────────────── */
+.imageCol {
+  position: relative;
+  padding-left: var(--space-lg);
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  z-index: 2;
+  background-color: var(--ink-soft);
+}
+
+.image {
+  width: 100%;
+  height: 120%;
+  object-fit: cover;
+  object-position: center;
+  filter: grayscale(20%) contrast(110%);
+  transition: filter var(--duration-slow) var(--ease-out);
+}
+
+.imageWrapper:hover .image {
+  filter: grayscale(0%) contrast(100%);
+}
+
+.imageFrame {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--gold);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* ─────────────────────────────────────────
+   CONTENT COLUMN (RIGHT)
+───────────────────────────────────────── */
+.contentCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  padding-right: var(--space-lg);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-bright);
+  margin-bottom: var(--space-sm);
+}
+
+.name {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 5vw, 5.5rem);
+  color: var(--white);
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+}
+
+.role {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.2rem;
+  color: var(--grey);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.body p {
+  color: var(--cream-dark);
+  font-size: 1.05rem;
+  line-height: 1.8;
+  font-weight: 300;
+}
+
+.body strong {
+  color: var(--gold-bright);
+  font-weight: 500;
+}
+
+/* Editorial Blockquote */
+.quote {
+  position: relative;
+  margin: var(--space-md) 0 0 0;
+  padding: var(--space-lg) 0 var(--space-lg) var(--space-xl);
+  font-family: var(--font-serif);
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  line-height: 1.5;
+  color: var(--gold-wash);
+  font-style: italic;
+  border-left: 2px solid var(--gold);
+  background: linear-gradient(90deg, rgba(212, 160, 23, 0.05) 0%, transparent 100%);
+}
+
+.quote::before {
+  content: '“';
+  position: absolute;
+  top: -10px;
+  left: 20px;
+  font-family: var(--font-serif);
+  font-size: 4rem;
+  color: rgba(212, 160, 23, 0.15);
+  line-height: 1;
+}
+
+/* ─────────────────────────────────────────
+   RESPONSIVE DESIGN
+───────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2xl);
+  }
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+  
+  .imageCol {
+    padding-left: 10px;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .imageFrame {
+    top: -10px;
+    left: -10px;
+  }
+  
+  .contentCol {
+    padding-right: 0;
+  }
+  
+  .quote {
+    padding-left: var(--space-lg);
+  }
+}

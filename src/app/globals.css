@@ -1,4 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap');
+/* ─────────────────────────────────────────
+   THE APPLE TYPOGRAPHY STACK
+───────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 /* ─────────────────────────────────────────
    RESET
@@ -31,10 +34,11 @@
   --gold-pale:    #F0E0A0;
   --gold-wash:    #FBF5E6;
 
-  /* Typography */
-  --font-display: 'Bebas Neue', sans-serif;
-  --font-serif:   'Playfair Display', serif;
-  --font-body:    'DM Sans', sans-serif;
+  /* Typography - Apple System Stack */
+  --font-apple: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-body: var(--font-apple);
+  --font-display: var(--font-apple);
+  --font-serif: var(--font-apple); /* Overriding serif to keep the entire site universally clean */
 
   /* Spacing scale */
   --space-xs:   4px;
@@ -124,7 +128,6 @@
 ───────────────────────────────────────── */
 html {
   font-size: 16px;
-  /* scroll-behavior: smooth; */
   text-rendering: optimizeLegibility;
 }
 
@@ -133,31 +136,38 @@ body {
   color: var(--ink);
   font-family: var(--font-body);
   font-weight: 400;
-  line-height: 1.65;
+  line-height: 1.6;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 /* ─────────────────────────────────────────
-   TYPOGRAPHY SCALE
+   TYPOGRAPHY SCALE (The Apple Look)
 ───────────────────────────────────────── */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
-  line-height: 1.05;
-  letter-spacing: 0.02em;
+  font-weight: 700; /* Apple uses heavy, bold headers */
   color: var(--ink);
+  line-height: 1.05;
+  letter-spacing: -0.03em; /* Tight letter spacing is key for modern tech headers */
 }
 
-h1 { font-size: clamp(3.5rem, 8vw, 8rem); }
+h1 { 
+  font-size: clamp(3.5rem, 8vw, 8rem); 
+  font-weight: 800; /* Extra heavy for hero text */
+  letter-spacing: -0.04em; 
+}
 h2 { font-size: clamp(2.5rem, 5vw, 5rem); }
 h3 { font-size: clamp(1.8rem, 3vw, 3rem); }
 h4 { font-size: clamp(1.3rem, 2vw, 1.8rem); }
 
 p {
-  font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+  font-size: clamp(1rem, 1.2vw, 1.125rem); /* Slightly larger, highly readable body copy */
   color: var(--ink-light);
-  line-height: 1.75;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+  font-weight: 400;
 }
 
 a {
@@ -168,7 +178,10 @@ a {
 
 a:hover { color: var(--gold); }
 
-strong { font-weight: 600; color: var(--ink); }
+strong { 
+  font-weight: 600; 
+  color: var(--ink); 
+}
 
 /* ─────────────────────────────────────────
    SELECTION

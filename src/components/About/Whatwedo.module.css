@@ -1,0 +1,473 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap');
+
+/* ─── TOKENS ──────────────────────────────────────────────── */
+:root {
+  --ink:      #080705;
+  --cream:    #F5F0E8;
+  --orange:   #FF6B1A;
+  --gold:     #D4A017;
+  --f-dis:    'Bebas Neue', sans-serif;
+  --f-body:   'DM Sans', sans-serif;
+}
+
+/* ─── SECTION ─────────────────────────────────────────────── */
+.sectionWrapper {
+  position: relative;
+  /* Optional: add top/bottom padding here if you want space between page sections */
+}
+
+.animatedSection {
+  background: #0a0806;
+  padding: 0 0 96px;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  /* Optimizes browser rendering for the scroll transform */
+  will-change: transform, opacity, border-radius; 
+}
+
+/* subtle noise */
+.noise {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ═══════════════════════════════════════════
+   BOARD WRAP + WIRES
+═══════════════════════════════════════════ */
+.boardWrap {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 0;
+  margin-bottom: 64px;
+  /* Removed manual CSS transitions - Handled by Framer Motion */
+}
+
+/* wires container */
+.wires {
+  width: 860px;
+  max-width: 92vw;
+  height: 52px;
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  padding: 0 18%;
+  flex-shrink: 0;
+}
+.wire {
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(255,107,26,0.2) 40%,
+    rgba(255,107,26,0.7) 100%
+  );
+  animation: sway 7s ease-in-out infinite;
+}
+.wire:nth-child(2) { animation-duration: 9s; animation-delay: 0.8s; }
+.wire:nth-child(3) { animation-duration: 6s; animation-delay: 1.6s; }
+@keyframes sway {
+  0%,100% { transform: skewX(0deg); }
+  50%      { transform: skewX(0.5deg); }
+}
+
+/* ═══════════════════════════════════════════
+   THE BOARD
+═══════════════════════════════════════════ */
+.board {
+  position: relative;
+  width: 860px;
+  max-width: 92vw;
+  
+  background: #0f0b08;
+  background-image:
+    linear-gradient(rgba(255, 107, 26, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 107, 26, 0.04) 1px, transparent 1px);
+  background-size: 10px 10px;
+  
+  border-radius: 14px;
+  box-shadow:
+    0 2px 0 rgba(255,107,26,0.15),
+    0 6px 24px rgba(0,0,0,0.7),
+    0 20px 48px rgba(0,0,0,0.6),
+    inset 0 1px 0 rgba(255,255,255,0.04),
+    inset 0 0 30px rgba(0,0,0,0.6); 
+    
+  animation: swing 10s ease-in-out infinite;
+  transform-origin: top center;
+}
+
+@keyframes swing {
+  0%,100% { transform: rotate(0deg); }
+  40%      { transform: rotate(0.2deg); }
+  70%      { transform: rotate(-0.15deg); }
+}
+
+.tubeSvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+.tubeRect {
+  filter:
+    drop-shadow(0 0 3px rgba(255,107,26,0.9))
+    drop-shadow(0 0 10px rgba(255,107,26,0.45));
+  animation: tubePulse 5s ease-in-out infinite;
+}
+
+@keyframes tubePulse {
+  0%,100% { opacity: 1; }
+  91%     { opacity: 1; }
+  92%     { opacity: 0.55; }
+  93%     { opacity: 1; }
+  97%     { opacity: 0.8; }
+  98%     { opacity: 1; }
+}
+
+.boardContent {
+  position: relative;
+  z-index: 2;     
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 28px 40px 30px;
+}
+
+.boardEye {
+  position: absolute;
+  top: 1;
+  font-family: var(--f-body);
+  font-size: 0.65rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(255,107,26,0.6);
+  font-weight: 500;
+}
+
+.boardTitleRow {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: nowrap; 
+  justify-content: center;
+  white-space: nowrap; 
+}
+
+.t1 {
+  font-family: var(--f-dis);
+  font-size: clamp(1.2rem, 4.2vw, 3.6rem); 
+  letter-spacing: 0.08em;
+  line-height: 1;
+  color: #ffffff; 
+  text-shadow:
+    0 0 2px #fff,
+    0 0 6px #FF7C35,
+    0 0 12px #FF6B1A,
+    0 0 24px #FF6B1A,
+    0 0 48px rgba(255,107,26,0.6);
+  animation: t1Pulse 4s ease-in-out infinite;
+}
+
+@keyframes t1Pulse {
+  0%, 100% {
+    text-shadow:
+      0 0 2px #fff,
+      0 0 6px #FF7C35,
+      0 0 12px #FF6B1A,
+      0 0 24px #FF6B1A,
+      0 0 48px rgba(255,107,26,0.6);
+  }
+  50% {
+    text-shadow:
+      0 0 2px #fff,
+      0 0 8px #FF7C35,
+      0 0 16px #FF6B1A,
+      0 0 32px #FF6B1A,
+      0 0 64px rgba(255,107,26,0.8);
+  }
+}
+
+.t2 {
+  font-family: var(--f-dis);
+  font-size: clamp(1.2rem, 4.2vw, 3.6rem);
+  letter-spacing: 0.08em;
+  line-height: 1;
+  color: #FFF5EC;
+  text-shadow:
+    0 0 4px rgba(255,245,236,0.9),
+    0 0 12px rgba(255,200,150,0.6),
+    0 0 24px rgba(255,200,150,0.3);
+}
+
+.boardSub {
+  font-family: var(--f-body);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.3);
+  margin-top: 2px;
+}
+
+/* ═══════════════════════════════════════════
+   CARDS
+═══════════════════════════════════════════ */
+.cardsWrap {
+  position: relative;
+  z-index: 2;
+  padding: 0 clamp(20px, 5vw, 72px);
+  max-width: 1380px;
+  margin: 0 auto;
+}
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.card {
+  position: relative;
+  border-radius: 16px;
+  padding: 30px 26px 34px;
+  cursor: default;
+  overflow: hidden;
+  box-shadow:
+    inset 0 0 0 1px rgba(var(--crgb), 0.28),
+    0 4px 24px rgba(0,0,0,0.4);
+  /* Keeping hover physics, removing entry physics (handled by framer) */
+  transition: box-shadow 0.35s ease;
+}
+
+.card:hover {
+  box-shadow:
+    inset 0 0 0 1px rgba(var(--crgb), 0.75),
+    0 0 32px rgba(var(--crgb), 0.15),
+    0 8px 32px rgba(0,0,0,0.5);
+}
+
+.cardBg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse 80% 60% at 0% 0%,
+      rgba(var(--crgb), 0.14) 0%,
+      rgba(var(--crgb), 0.04) 40%,
+      transparent 70%
+    ),
+    linear-gradient(160deg, #1a1208 0%, #0d0b08 100%);
+  z-index: 0;
+}
+
+.cardHead, .cardTitle, .divider, .itemList, .screw {
+  position: relative;
+  z-index: 1;
+}
+
+.cardHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.cardNum {
+  font-family: var(--f-dis);
+  font-size: 3.2rem;
+  line-height: 1;
+  color: var(--c);
+  opacity: 0.16;
+  letter-spacing: 0.02em;
+  transition: opacity 0.3s;
+}
+.card:hover .cardNum { opacity: 0.42; }
+
+.iconBox {
+  width: 48px;
+  height: 48px;
+  padding: 7px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+.iconBox svg { width: 100%; height: 100%; }
+.card:hover .iconBox {
+  background: rgba(var(--crgb), 0.08);
+  border-color: rgba(var(--crgb), 0.5);
+  box-shadow: 0 0 12px rgba(var(--crgb), 0.2);
+}
+
+.cardTitle {
+  font-family: var(--f-dis);
+  font-size: 1.7rem;
+  letter-spacing: 0.07em;
+  color: var(--c);
+  margin-bottom: 14px;
+  line-height: 1.1;
+  text-shadow: 0 0 16px rgba(var(--crgb), 0.35);
+  transition: text-shadow 0.3s;
+}
+.card:hover .cardTitle {
+  text-shadow: 0 0 20px rgba(var(--crgb), 0.55);
+}
+
+.divider {
+  height: 1px;
+  background: linear-gradient(to right, rgba(var(--crgb), 0.5), transparent 80%);
+  margin-bottom: 18px;
+  transition: opacity 0.3s;
+  opacity: 0.5;
+}
+.card:hover .divider { opacity: 1; }
+
+.itemList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--f-body);
+  font-size: 1rem;
+  color: rgba(245,240,232,0.42);
+  transition: color 0.22s ease, transform 0.22s ease;
+}
+.card:hover .item {
+  color: rgba(245,240,232,0.72);
+  transform: translateX(4px);
+}
+.dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--c);
+  opacity: 0.5;
+  flex-shrink: 0;
+  transition: opacity 0.22s, box-shadow 0.22s;
+}
+.card:hover .dot {
+  opacity: 1;
+  box-shadow: 0 0 5px var(--c);
+}
+
+.screw {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.screw::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 2px; height: 2px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.12);
+}
+.tl { top: 9px;  left: 9px; }
+.tr { top: 9px;  right: 9px; }
+.bl { bottom: 9px; left: 9px; }
+.br { bottom: 9px; right: 9px; }
+.card:hover .screw {
+  border-color: rgba(var(--crgb), 0.5);
+}
+
+/* ── BADGE ── */
+.badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 52px auto 0;
+  padding: 12px 26px;
+  background: rgba(212,160,23,0.06);
+  border: 1px solid rgba(212,160,23,0.2);
+  border-radius: 999px;
+  max-width: fit-content;
+  position: relative;
+  z-index: 2;
+}
+
+.badge span {
+  font-family: var(--f-body);
+  font-size: 0.73rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: #D4A017;
+  font-weight: 500;
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .cardsGrid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 680px) {
+  .tubeSvg {
+    display: none !important;
+  }
+
+  .boardContent {
+    padding: 32px 16px 28px;
+    margin: 12px;
+    width: calc(100% - 24px);
+    box-sizing: border-box;
+    border: 2px solid #FF6B1A;
+    border-radius: 12px;
+    box-shadow:
+      0 0 3px rgba(255,107,26,0.9),
+      0 0 10px rgba(255,107,26,0.45),
+      inset 0 0 3px rgba(255,107,26,0.9),
+      inset 0 0 10px rgba(255,107,26,0.45);
+  }
+
+  .boardTitleRow {
+    flex-wrap: wrap !important; 
+    white-space: normal !important; 
+    gap: 4px;
+  }
+  
+  .t1, .t2 {
+    font-size: clamp(2.2rem, 9vw, 3rem);
+  }
+
+  .boardEye {
+    position: relative; 
+    margin-bottom: 6px;
+  }
+  
+  .boardSub {
+    padding: 0 10px;
+    text-align: center;
+    line-height: 1.4;
+    margin-top: 8px;
+  }
+
+  .cardsGrid { grid-template-columns: 1fr; gap: 16px; }
+  .cardsWrap { padding: 0 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .board, .wire, .tubeRect, .t1 { animation: none !important; }
+}

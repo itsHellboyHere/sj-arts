@@ -1,0 +1,87 @@
+.section {
+  background: #0d0a07;
+  padding: 64px 0;
+  overflow: hidden;
+  border-top: 1px solid rgba(212,160,23,0.1);
+  border-bottom: 1px solid rgba(212,160,23,0.1);
+}
+
+.inner {
+  position: relative;
+}
+
+.label {
+  display: block;
+  text-align: center;
+  font-size: 0.68rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(212,160,23,0.5);
+  margin-bottom: 32px;
+  font-weight: 500;
+}
+
+.track {
+  overflow: hidden;
+}
+
+.marquee {
+  display: flex;
+  gap: 0;
+  width: max-content;
+  animation: marqueeScroll 30s linear infinite;
+}
+
+.marquee:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-33.333%); }
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  padding: 0 32px;
+  flex-shrink: 0;
+}
+
+.brandName {
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2.5vw, 2rem);
+  color: rgba(250,248,244,0.15);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  transition: color var(--duration-fast);
+}
+
+.brand:hover .brandName {
+  color: rgba(250,248,244,0.6);
+}
+
+.sep {
+  margin-left: 32px;
+  font-size: 1.5rem;
+  color: rgba(212,160,23,0.2);
+}
+
+/* Edge fades */
+.fadeLeft, .fadeRight {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 160px;
+  pointer-events: none;
+}
+
+.fadeLeft {
+  left: 0;
+  background: linear-gradient(to right, #0d0a07, transparent);
+}
+
+.fadeRight {
+  right: 0;
+  background: linear-gradient(to left, #0d0a07, transparent);
+}

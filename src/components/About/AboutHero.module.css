@@ -1,0 +1,160 @@
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 800px;
+  background-color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Sophisticated Lighting & Texture */
+.ambientGold {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70vw;
+  height: 50vw;
+  background: radial-gradient(circle, rgba(212, 160, 23, 0.12) 0%, transparent 70%);
+  filter: blur(80px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.noise {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Content */
+.content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  width: 100%;
+  padding: 0 var(--gutter);
+}
+
+.badgeWrapper {
+  margin-bottom: var(--space-lg);
+}
+
+.badge {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  color: var(--gold-bright);
+  padding: 8px 24px;
+  border: 1px solid rgba(212, 160, 23, 0.3);
+  border-radius: var(--radius-pill);
+  text-transform: uppercase;
+}
+
+.headline {
+  margin: 0;
+  font-family: var(--font-display);
+  /* I slightly adjusted the clamp max-size down from 12vw to 10.5vw so it naturally fits better on standard laptops without overflowing */
+  font-size: clamp(3rem, 10.5vw, 10.5rem);
+  line-height: 0.85;
+  letter-spacing: 0.02em;
+}
+
+.outline {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--cream-dark);
+  opacity: 0.6;
+}
+
+.solidGlow {
+  display: inline-block;
+  /* color: var(--cream); */
+  white-space: nowrap;
+ color: #ffffff;
+  text-shadow: 
+    0 0 5px #ffffff,
+    0 0 15px #FF6B1A,
+    0 0 30px #FF6B1A,
+    0 0 60px #D4A017,
+    0 0 100px rgba(255,107,26, 0.8);
+}
+
+/* --- NEW: Broken Neon 'E' Effect --- */
+.brokenE {
+  display: inline-block;
+  transform-origin: top left;
+  transform: translateY(0.06em) rotate(6deg); 
+  animation: brokenFlicker 5s infinite alternate;
+}
+
+@keyframes brokenFlicker {
+  /* The "ON" states (Matches the true neon glow) */
+  0%, 18%, 22%, 25%, 53%, 57%, 100% {
+    opacity: 1;
+    color: #ffffff;
+    text-shadow: 
+      0 0 5px #ffffff,
+      0 0 15px #FF6B1A,
+      0 0 30px #FF6B1A,
+      0 0 60px #D4A017,
+      0 0 100px rgba(255,107,26, 0.8);
+  }
+  /* The "OFF/DEAD" states (Looks like a dark glass tube) */
+  20%, 24%, 55% {
+    opacity: 0.9;
+    color: #2E2A27; /* Dark ink color */
+    text-shadow: none; /* Kills the glow completely */
+  }
+}
+/* ---------------------------------- */
+
+/* Scroll indicator */
+.scrollDown {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.scrollText {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.scrollLine {
+  width: 1px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.scrollLine::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: var(--gold-bright);
+  animation: scrollDrop 2s var(--ease-out) infinite;
+}
+
+@keyframes scrollDrop {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(200%); }
+}
