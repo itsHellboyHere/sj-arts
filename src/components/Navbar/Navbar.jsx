@@ -10,7 +10,7 @@ const NAV_LINKS = [
     { label: 'Services', href: '/services' },
     { label: 'About', href: '/about' },
     { label: 'Gallery', href: '/gallery' },
-    { label: 'F&Q', href: '/faq' },
+    { label: 'FAQ', href: '/faq' },
 ]
 
 export default function Navbar() {

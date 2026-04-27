@@ -1,0 +1,11 @@
+/* ═══════════════════════════════════════
+   contact.module.css — page shell only
+   All section styles live in their own
+   ContactHero.module.css / ContactPanel.module.css
+═══════════════════════════════════════ */
+.page {
+  background: #FAF8F4;
+  color: #181614;
+  min-height: 100vh;
+  overflow-x: hidden;
+}

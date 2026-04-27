@@ -1,0 +1,472 @@
+/* ═══════════════════════════════════════════════════════════════
+   MasonryGallery.module.css
+   3-column grid masonry — each col is a flex column
+   Apple-style entrance: left col from left, centre from below,
+   right col from right — triggered on scroll into view
+═══════════════════════════════════════════════════════════════ */
+
+.section {
+  padding-bottom: 100px;
+}
+
+.container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 60px;
+  /* Clip so items flying in from outside don't cause scrollbar */
+  overflow: hidden;
+}
+
+/* ─── 3-col grid ──────────────────────────────────────────── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  align-items: start;
+}
+
+/* Each column is a flex column so items stack naturally */
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ─── Item base ───────────────────────────────────────────── */
+.item {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  background: #181614;
+  display: block;
+  /* will-change helps GPU composite the entrance animation */
+  will-change: transform, opacity;
+  transition: box-shadow 350ms cubic-bezier(0.16,1,0.3,1);
+}
+
+.item:hover {
+  box-shadow: 0 16px 48px rgba(184,134,11,0.20),
+              0 4px 16px rgba(0,0,0,0.3);
+}
+
+/* Height variants */
+.short  { height: 220px; }
+.medium { height: 310px; }
+.tall   { height: 400px; }
+
+/* ─── Image ───────────────────────────────────────────────── */
+.itemImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 550ms cubic-bezier(0.16,1,0.3,1),
+              filter 400ms;
+}
+
+.item:hover .itemImg {
+  transform: scale(1.06);
+  filter: brightness(0.75);
+}
+
+/* ─── Video overlay ───────────────────────────────────────── */
+.videoOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(14,13,11,0.25);
+  transition: background 300ms;
+}
+
+.item:hover .videoOverlay {
+  background: rgba(14,13,11,0.45);
+}
+
+.playBtn {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 2px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(14,13,11,0.55);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  transition: transform 300ms cubic-bezier(0.34,1.56,0.64,1),
+              background 300ms;
+}
+
+.item:hover .playBtn {
+  transform: scale(1.14);
+  background: rgba(14,13,11,0.75);
+}
+
+/* ─── Hover number overlay ────────────────────────────────── */
+.itemOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 16px 18px;
+  opacity: 0;
+  transition: opacity 300ms;
+  background: linear-gradient(
+    to top,
+    rgba(184,134,11,0.5) 0%,
+    rgba(212,160,23,0.1) 45%,
+    transparent 100%
+  );
+}
+
+.item:hover .itemOverlay { opacity: 1; }
+
+.itemNum {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: #FAF8F4;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+}
+
+/* ─── Placeholder ─────────────────────────────────────────── */
+.placeholder {
+  cursor: default;
+  border: 1px solid rgba(245,240,232,0.06);
+}
+
+.placeholder:hover { box-shadow: none; }
+
+.placeholderInner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #181614 0%, #131210 100%);
+}
+
+.placeholderText {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.15);
+}
+
+.addNote {
+  text-align: center;
+  font-size: 0.78rem;
+  color: rgba(245,240,232,0.2);
+  margin-top: 24px;
+  letter-spacing: 0.01em;
+  line-height: 1.6;
+}
+
+.addNote code {
+  background: rgba(245,240,232,0.06);
+  border: 1px solid rgba(245,240,232,0.10);
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.75rem;
+  color: rgba(245,240,232,0.4);
+}
+
+/* ─── LIGHTBOX ────────────────────────────────────────────── */
+.lightboxBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(10,9,8,0.96);
+  backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 40px;
+}
+
+.lbClose {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(245,240,232,0.08);
+  border: 1px solid rgba(245,240,232,0.12);
+  color: #F5F0E8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 180ms, transform 180ms;
+  z-index: 1;
+}
+
+.lbClose:hover {
+  background: rgba(245,240,232,0.15);
+  transform: scale(1.08);
+}
+
+.lbCounter {
+  position: absolute;
+  top: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: rgba(245,240,232,0.3);
+}
+
+.lbMedia {
+  max-width: 90vw;
+  max-height: 85vh;
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+}
+
+.lbImg {
+  max-width: 90vw;
+  max-height: 85vh;
+  object-fit: contain;
+  display: block;
+  border-radius: 16px;
+}
+
+.lbVideo {
+  max-width: 90vw;
+  max-height: 85vh;
+  border-radius: 16px;
+  outline: none;
+}
+
+.lbNav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(245,240,232,0.08);
+  border: 1px solid rgba(245,240,232,0.12);
+  color: #F5F0E8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 180ms, transform 180ms;
+}
+
+.lbNav:hover { background: rgba(245,240,232,0.15); }
+
+.lbNavPrev { left: 16px; }
+.lbNavPrev:hover { transform: translateY(-50%) translateX(-3px); }
+.lbNavNext { right: 16px; }
+.lbNavNext:hover { transform: translateY(-50%) translateX(3px); }
+
+/* ─── RESPONSIVE ──────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .container { padding: 0 40px; }
+}
+
+@media (max-width: 768px) {
+  .container { padding: 0 24px; }
+  .grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* On 2-col, hide the third column — items reflow into first two */
+  .col:nth-child(3) { display: none; }
+
+  .short  { height: 180px; }
+  .medium { height: 240px; }
+  .tall   { height: 300px; }
+
+  .lightboxBackdrop { padding: 50px 16px 20px; }
+  .lbNavPrev { left: 8px; }
+  .lbNavNext { right: 8px; }
+}
+
+@media (max-width: 480px) {
+  .grid { grid-template-columns: 1fr; }
+  .col:nth-child(3),
+  .col:nth-child(2) { display: none; }
+  .short, .medium, .tall { height: 260px; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LIGHTBOX LOADING STATES
+═══════════════════════════════════════════════════════════════ */
+
+/* ─── Top bar ─────────────────────────────────────────────── */
+.lbTopBar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  z-index: 10;
+  background: linear-gradient(to bottom, rgba(10,9,8,0.7) 0%, transparent 100%);
+}
+
+.lbCounter {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: rgba(245,240,232,0.9);
+  background: rgba(245,240,232,0.08);
+  border: 1px solid rgba(245,240,232,0.10);
+  padding: 6px 14px;
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+}
+
+.lbCounterSep {
+  color: rgba(245,240,232,0.3);
+  margin: 0 2px;
+}
+
+.lbTypeBadge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.45);
+  background: rgba(245,240,232,0.06);
+  border: 1px solid rgba(245,240,232,0.08);
+  padding: 5px 12px;
+  border-radius: 999px;
+}
+
+/* ─── Loader overlay (inside lbMedia) ────────────────────── */
+.lbMediaInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 300px;
+  min-height: 200px;
+}
+
+.lbLoaderOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0E0D0B;
+  border-radius: 16px;
+}
+
+/* ─── Loader widget ───────────────────────────────────────── */
+.loaderWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 40px;
+}
+
+.loaderIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loaderBarTrack {
+  width: 160px;
+  height: 2px;
+  background: rgba(245,240,232,0.08);
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.loaderBar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60%;
+  height: 100%;
+  border-radius: 999px;
+  opacity: 0.8;
+}
+
+.loaderLabel {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.3);
+}
+
+/* ─── Error state ─────────────────────────────────────────── */
+.lbError {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 48px;
+  color: rgba(245,240,232,0.3);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* ─── Filmstrip dots ──────────────────────────────────────── */
+.lbDots {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: rgba(245,240,232,0.06);
+  border: 1px solid rgba(245,240,232,0.08);
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+  max-width: 80vw;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.lbDots::-webkit-scrollbar { display: none; }
+
+.lbDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(245,240,232,0.2);
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 200ms, transform 200ms, width 200ms;
+  padding: 0;
+}
+
+.lbDotActive {
+  width: 18px;
+  border-radius: 3px;
+  transform: none;
+}

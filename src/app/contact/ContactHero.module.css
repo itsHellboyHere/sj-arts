@@ -1,0 +1,148 @@
+/* ═══════════════════════════════════════════════════════════════
+   ContactHero.module.css
+   Dark 52vh hero with parallax bg, Apple word reveal,
+   pull-up indicator at bottom
+═══════════════════════════════════════════════════════════════ */
+
+.hero {
+  position: sticky;
+  top: 0;
+  height: 52vh;
+  min-height: 380px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: #0E0D0B;
+  z-index: 1; /* sits behind the pull-up panel */
+}
+
+/* ─── Parallax bg ─────────────────────────────────────────── */
+.heroBg {
+  position: absolute;
+  inset: -25%;
+  will-change: transform;
+}
+
+.heroBgImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.heroBgOverlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(14,13,11,0.45) 0%, rgba(14,13,11,0.75) 100%),
+    linear-gradient(135deg, rgba(184,134,11,0.18) 0%, transparent 60%);
+}
+
+/* ─── SVG grain ───────────────────────────────────────────── */
+.heroGrain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  pointer-events: none;
+}
+
+/* ─── Content ─────────────────────────────────────────────── */
+.heroContent {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 60px;
+  padding-top: var(--nav-height, 78px);
+}
+
+.heroEyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #D4A017;
+  margin-bottom: 24px;
+}
+
+.eyebrowDot {
+  width: 6px;
+  height: 6px;
+  background: #D4A017;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #D4A01780;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+/* ─── Title ───────────────────────────────────────────────── */
+.heroTitle {
+  font-size: clamp(3rem, 7vw, 7.5rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: #F5F0E8;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.22em;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.wordWrap {
+  overflow: hidden;
+  display: inline-block;
+}
+
+.heroTitleWord {
+  display: inline-block;
+  color: #F5F0E8;
+}
+
+.heroTitleWordGold {
+  display: inline-block;
+  color: #D4A017;
+}
+
+.heroSub {
+  font-size: clamp(1rem, 1.3vw, 1.15rem);
+  color: rgba(245,240,232,0.55);
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+  max-width: 420px;
+}
+
+/* ─── Pull indicator ──────────────────────────────────────── */
+.pullIndicator {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: rgba(245,240,232,0.35);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  z-index: 3;
+}
+
+/* ─── Responsive ──────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .heroContent { padding-left: 24px; padding-right: 24px; }
+  .hero { height: 48vh; min-height: 320px; }
+}
+
+@media (max-width: 480px) {
+  .heroContent { padding-left: 20px; padding-right: 20px; }
+  .heroTitle { font-size: clamp(2.4rem, 11vw, 4rem); }
+}

@@ -120,7 +120,7 @@
   stroke-dashoffset: 0;
   animation: strokeAnim 6s linear infinite;
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 88px;
+  font-size: 92px;
 }
 
 /* 5 stroke layers — gold palette */
@@ -135,7 +135,7 @@
   fill: #1C1A0E;
   stroke: none;
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 88px;
+  font-size: 92px;
 }
 
 /* ─────────────────────────────────────────
@@ -313,7 +313,7 @@
 }
 
 @media (max-width: 480px) {
-  .sText, .sFill { font-size: 88px; }
+  .sText, .sFill { font-size: 90px; }
   .sText { stroke-width: 1.8px; }
   .svgLine2 { margin-top: -6px; }
 

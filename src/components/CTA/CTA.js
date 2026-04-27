@@ -141,10 +141,10 @@ export default function CTA() {
           <a href="tel:+919888808193" className={styles.contactItem}>
             98888-08193
           </a>
-          <span className={styles.contactDiv}>·</span>
+          {/* <span className={styles.contactDiv}>·</span>
           <a href="tel:+918146234430" className={styles.contactItem}>
             81462-34430
-          </a>
+          </a> */}
         </div>
 
       </div>

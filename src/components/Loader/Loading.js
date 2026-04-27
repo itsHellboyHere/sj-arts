@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import styles from './Loading.module.css'
+import { usePathname } from 'next/navigation'
 
 export default function Loader() {
   const [phase, setPhase] = useState('enter')
@@ -13,7 +14,10 @@ export default function Loader() {
     const t3 = setTimeout(() => setPhase('done'),   3400)
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3) }
   }, [])
-
+  const pathnams = usePathname()
+  if (pathnams.startsWith("/services") || pathnams.startsWith("/contact")) {
+    return null;
+  }
   if (phase === 'done') return null
 
   return (

@@ -1,15 +1,18 @@
-/* ─── SECTION ─── */
-/* ─── SECTION ─── */
+/* ═══════════════════════════════════════════════════════════════
+   Services.module.css
+   Left col sticky, right list scrolls. Section is a tall
+   normal-flow block — NOT sticky itself.
+═══════════════════════════════════════════════════════════════ */
+
+/* ─── SECTION — tall normal block ────────────────────────── */
 .section {
-  position: sticky;
-  min-height: 160vh;      /* was 120vh — more scroll room */
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  padding: 180px 0;
-  top: -70%;
+  position: relative;
+  min-height: 160vh;
+  overflow: clip;
+  padding: 140px 0 180px;
 }
-/* ─── PARALLAX WRAP ─── */
+
+/* ─── PARALLAX WRAP ───────────────────────────────────────── */
 .bgWrap {
   position: absolute;
   inset: -20%;
@@ -28,20 +31,20 @@
   transition: transform 0.05s linear;
 }
 
-/* ─── OVERLAY ─── */
+/* ─── OVERLAY ─────────────────────────────────────────────── */
 .overlay {
   position: absolute;
   inset: 0;
   z-index: 1;
   background: linear-gradient(
     125deg,
-    rgba(12, 9, 6, 0.94) 0%,
-    rgba(12, 9, 6, 0.85) 45%,
-    rgba(12, 9, 6, 0.90) 100%
+    rgba(12,9,6,0.94) 0%,
+    rgba(12,9,6,0.85) 10%,
+    rgba(12,9,6,0.90) 800%
   );
 }
 
-/* ─── GRAIN ─── */
+/* ─── GRAIN ───────────────────────────────────────────────── */
 .grain {
   position: absolute;
   inset: 0;
@@ -51,7 +54,7 @@
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* ─── ACCENT ─── */
+/* ─── ACCENT ──────────────────────────────────────────────── */
 .accentTR {
   position: absolute;
   top: 48px;
@@ -64,7 +67,7 @@
   pointer-events: none;
 }
 
-/* ─── INNER ─── */
+/* ─── INNER ───────────────────────────────────────────────── */
 .inner {
   position: relative;
   z-index: 4;
@@ -75,11 +78,13 @@
   display: grid;
   grid-template-columns: 1fr 1.5fr;
   gap: 100px;
-  align-items: center;
+  align-items: start;       /* required for sticky child */
 }
 
-/* ─── LEFT ─── */
+/* ─── LEFT — sticky ───────────────────────────────────────── */
 .left {
+  position: sticky;
+  top: calc(var(--nav-height, 78px) + 48px);
   display: flex;
   flex-direction: column;
   gap: 32px;
@@ -94,6 +99,7 @@
   transform: translateX(0);
 }
 
+/* ─── LEFT content ────────────────────────────────────────── */
 .eyebrow {
   display: flex;
   align-items: center;
@@ -191,15 +197,15 @@
   transition: transform var(--duration-base) var(--ease-spring);
 }
 
-.cta:hover .ctaIcon {
-  transform: translateX(4px);
-}
+.cta:hover .ctaIcon { transform: translateX(4px); }
 
-/* ─── LIST ─── */
+/* ─── RIGHT LIST ──────────────────────────────────────────── */
 .list {
   list-style: none;
   display: flex;
   flex-direction: column;
+  padding: 0;
+  margin: 0;
 }
 
 .item {
@@ -214,6 +220,13 @@
   transform: translateY(0);
 }
 
+/* ─── Item link ───────────────────────────────────────────── */
+.itemLink {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
 .itemInner {
   display: flex;
   align-items: center;
@@ -222,9 +235,7 @@
   transition: padding-left var(--duration-base) var(--ease-out);
 }
 
-.item:hover .itemInner {
-  padding-left: 10px;
-}
+.itemLink:hover .itemInner { padding-left: 10px; }
 
 .itemLeft {
   display: flex;
@@ -255,7 +266,7 @@
   transition: color var(--duration-fast);
 }
 
-.item:hover .itemLabel { color: var(--gold); }
+.itemLink:hover .itemLabel { color: var(--gold); }
 
 .itemDesc {
   font-size: 0.7rem;
@@ -272,7 +283,7 @@
               transform var(--duration-base) var(--ease-spring);
 }
 
-.item:hover .itemArrow {
+.itemLink:hover .itemArrow {
   opacity: 1;
   transform: translateX(0);
 }
@@ -294,13 +305,17 @@
   transition: transform 0.45s var(--ease-out);
 }
 
-.item:hover .itemLine::after { transform: scaleX(1); }
+.itemLink:hover ~ .itemLine::after { transform: scaleX(1); }
 
-/* ─── RESPONSIVE ─── */
+/* ─── RESPONSIVE ──────────────────────────────────────────── */
 @media (max-width: 960px) {
   .inner {
     grid-template-columns: 1fr;
     gap: 56px;
+  }
+  /* disable sticky on mobile — single col, no point */
+  .left {
+    position: static;
   }
   .section { padding: 100px 0; }
 }

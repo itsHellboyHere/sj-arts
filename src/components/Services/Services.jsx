@@ -6,52 +6,52 @@ import useInView from '@/hooks/useInview'
 import styles from './Services.module.css'
 
 const SERVICES = [
-  { label: 'Acrylic Letters',    desc: 'Premium 3D letters for shops & offices' },
-  { label: 'Neon Sign Boards',   desc: 'Custom LED neon for any brand' },
-  { label: 'Glow Sign Boards',   desc: 'Backlit boards that shine day & night' },
-  { label: 'ACP Elevation',      desc: 'Aluminium composite cladding & boards' },
-  { label: 'Fabric LED Boards',  desc: 'Slim lightbox fabric displays' },
-  { label: 'Running LED',        desc: 'Scrolling text & animated LED strips' },
-  { label: 'Video LED',          desc: 'Full colour outdoor video displays' },
-  { label: 'Vinyl Printing',     desc: 'High resolution vinyl wraps & prints' },
-  { label: 'Hoardings',          desc: 'Large format outdoor advertising' },
-  { label: 'Visiting Cards',     desc: 'Premium cards, matte & glossy finish' },
+  { label: 'Acrylic Letters',       desc: 'Premium 3D letters for shops & offices',        slug: 'acrylic-letters'    },
+  { label: 'Acrylic Lollipop',      desc: 'Freestanding pole-mounted acrylic displays',     slug: 'acrylic-lollipop'   },
+  { label: 'ACP Boards',            desc: 'Aluminium composite cladding & boards',          slug: 'acp-boards'         },
+  { label: 'Glow Sign Boards',      desc: 'Backlit boards that shine day & night',          slug: 'glow-sign-boards'   },
+  { label: 'Fabric LED Boards',     desc: 'Slim SEG lightbox fabric displays',              slug: 'fabric-led-boards'  },
+  { label: 'Neon Sign Boards',      desc: 'Custom LED neon for any brand or space',         slug: 'neon-sign-boards'   },
+  { label: 'Clip On Boards',        desc: 'Snap-frame boards for quick graphic swaps',      slug: 'clip-on-boards'     },
+  { label: 'Video LED',             desc: 'Full colour outdoor video LED walls',            slug: 'video-led'          },
+  { label: 'Running LED Boards',    desc: 'Scrolling text & animated LED marquees',         slug: 'running-led'        },
+  { label: 'Pen Printing',          desc: 'Branded pens for gifting & promotions',          slug: 'pen-printing'       },
+  { label: 'Mug Printing',          desc: 'Dye-sublimation full-wrap mug printing',         slug: 'mug-printing'       },
+  { label: 'PVC / WPC / UV Sheets', desc: 'UV flatbed printing on rigid board substrates',  slug: 'pvc-wpc-uv-sheets'  },
+  { label: 'Wallpapers',            desc: 'Custom wall murals & self-adhesive prints',      slug: 'wallpapers'         },
+  { label: 'Menu Printing',         desc: 'Premium bound menus for restaurants & hotels',   slug: 'menu-printing'      },
+  { label: 'Banners & Hoarding',    desc: 'Large format flex, mesh & billboard printing',   slug: 'banners-hoarding'   },
 ]
 
 export default function Services() {
-  const bgRef = useRef(null)
+  const bgRef      = useRef(null)
   const sectionRef = useRef(null)
 
-  const [leftRef,  leftInView]  = useInView({ threshold: 0.15 })
-  const [listRef,  listInView]  = useInView({ threshold: 0.08 })
+  const [leftRef, leftInView] = useInView({ threshold: 0.15 })
+  const [listRef, listInView] = useInView({ threshold: 0.08 })
 
-  // JS parallax — moves bg slower than scroll
   useEffect(() => {
     const section = sectionRef.current
     const bg      = bgRef.current
     if (!section || !bg) return
 
     const onScroll = () => {
-      const rect   = section.getBoundingClientRect()
-      const vh     = window.innerHeight
-      // only run when section is visible
+      const rect = section.getBoundingClientRect()
+      const vh   = window.innerHeight
       if (rect.bottom < 0 || rect.top > vh) return
-      // progress 0 → 1 as section scrolls through viewport
       const progress = (vh - rect.top) / (vh + rect.height)
-      // shift bg by max ±80px
-      const shift = (progress - 0.5) * 260
+      const shift    = (progress - 0.5) * 260
       bg.style.transform = `scale(1.15) translateY(${shift}px)`
     }
 
     window.addEventListener('scroll', onScroll, { passive: true })
-    onScroll() // run once on mount
+    onScroll()
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
   return (
     <section className={styles.section} ref={sectionRef}>
 
-      {/* Parallax bg */}
       <div className={styles.bgWrap}>
         <div className={styles.bg} ref={bgRef} />
       </div>
@@ -100,33 +100,34 @@ export default function Services() {
           </Link>
         </div>
 
-        {/* RIGHT */}
+        {/* RIGHT — each item links to its slug */}
         <ul ref={listRef} className={styles.list}>
-          {SERVICES.map(({ label, desc }, i) => (
+          {SERVICES.map(({ label, desc, slug }, i) => (
             <li
-              key={label}
+              key={slug}
               className={`${styles.item} ${listInView ? styles.itemIn : ''}`}
               style={{ transitionDelay: listInView ? `${i * 65}ms` : '0ms' }}
             >
-              <div className={styles.itemInner}>
-                <div className={styles.itemLeft}>
-                  <span className={styles.itemNum}>
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  <div className={styles.itemText}>
-                    <span className={styles.itemLabel}>{label}</span>
-                    <span className={styles.itemDesc}>{desc}</span>
+              <Link href={`/services/${slug}`} className={styles.itemLink}>
+                <div className={styles.itemInner}>
+                  <div className={styles.itemLeft}>
+                    <span className={styles.itemNum}>
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <div className={styles.itemText}>
+                      <span className={styles.itemLabel}>{label}</span>
+                      <span className={styles.itemDesc}>{desc}</span>
+                    </div>
                   </div>
+                  <span className={styles.itemArrow}>→</span>
                 </div>
-                <span className={styles.itemArrow}>→</span>
-              </div>
+              </Link>
               <div className={styles.itemLine} />
             </li>
           ))}
         </ul>
 
       </div>
-
     </section>
   )
 }
