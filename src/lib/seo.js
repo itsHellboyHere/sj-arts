@@ -4,7 +4,8 @@
 //  Replace SITE_URL with the real domain — nothing else changes.
 // ─────────────────────────────────────────────────────────────
 
-export const SITE_URL     = "http://localhost:3000"; // ← change to https://sjarts.in when live
+
+export const SITE_URL = "https://sjarts.in";
 export const SITE_NAME    = "SJ Arts Printers";
 export const SITE_TAGLINE = "Ludhiana's Premier Printing & Signage Studio";
 export const DEFAULT_OG   = `${SITE_URL}/og-image.jpg`;
