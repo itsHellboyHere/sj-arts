@@ -4,6 +4,7 @@ import Footer  from "@/components/Footer/Footer"
 import "./globals.css"
 
 import { SITE_URL, SITE_NAME, SITE_TAGLINE, DEFAULT_OG, BUSINESS } from "@/lib/seo"
+import ServerNotice from "@/components/ServerNotice/ServerNotice"
 
 // ─── Root metadata ────────────────────────────────────────────
 export const metadata = {
@@ -170,6 +171,7 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body>
+        <ServerNotice/>
         <Loader />
         <Navbar />
         <main>{children}</main>
